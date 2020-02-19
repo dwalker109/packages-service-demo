@@ -10,28 +10,28 @@ const seedPackages = () =>
       {
         name: "Test pkg 1",
         description: "Test pkg 1 desc",
-        price: 100
+        price: 100,
       },
       {
         name: "Test pkg 2",
         description: "Test pkg 2 desc",
-        price: 100
+        price: 100,
       },
       {
         name: "Test pkg 3",
         description: "Test pkg 3 desc",
-        price: 100
+        price: 100,
       },
       {
         name: "Test pkg 4",
         description: "Test pkg 4 desc",
-        price: 100
+        price: 100,
       },
       {
         name: "Test pkg 5",
         description: "Test pkg 5 desc",
-        price: 100
-      }
+        price: 100,
+      },
     ])
     .execute();
 
