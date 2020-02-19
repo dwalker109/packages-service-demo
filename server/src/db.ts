@@ -6,7 +6,8 @@ const initDevConnection = (): Promise<Connection> => {
     type: "sqlite",
     entities: ["src/entities/**/*.ts"],
     synchronize: true,
-    database: "db/dev.sqlite"
+    database: "db/dev.sqlite",
+    logging: false
   };
   return createConnection(options);
 };
@@ -16,7 +17,7 @@ const initTestConnection = async (): Promise<Connection> => {
     type: "sqlite",
     synchronize: true,
     entities: ["src/entities/**/*.ts"],
-    database: "db/test.sqlite",
+    database: ":memory:",
     dropSchema: true,
     logging: false
   };
