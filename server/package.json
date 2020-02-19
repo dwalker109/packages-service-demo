@@ -1,0 +1,44 @@
+{
+  "name": "packages-service-demo-server",
+  "version": "0.0.1",
+  "description": "RESTful API to serve packages demo",
+  "main": "server.ts",
+  "scripts": {
+    "test": "jest",
+    "start": "ts-node-dev --respawn --transpileOnly src/server.ts"
+  },
+  "keywords": [
+    "koa",
+    "dwalker109",
+    "rest"
+  ],
+  "author": "dwalker109@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "@koa/router": "^8.0.8",
+    "koa": "^2.11.0",
+    "koa-pino-logger": "^2.1.3",
+    "reflect-metadata": "^0.1.10",
+    "sqlite3": "^4.1.1",
+    "supertest": "^4.0.2",
+    "ts-node-dev": "^1.0.0-pre.44",
+    "typeorm": "0.2.22",
+    "uuid": "^3.4.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^25.1.2",
+    "@types/koa": "^2.11.1",
+    "@types/koa-pino-logger": "^2.1.6",
+    "@types/koa__router": "^8.0.2",
+    "@types/node": "^8.0.29",
+    "@types/sqlite3": "^3.1.6",
+    "@types/supertest": "^2.0.8",
+    "@types/uuid": "^3.4.7",
+    "chai-http": "^4.3.0",
+    "eslint": "^6.8.0",
+    "jest": "^25.1.0",
+    "nodemon": "^2.0.2",
+    "ts-jest": "^25.2.0",
+    "typescript": "3.3.3333"
+  }
+}
