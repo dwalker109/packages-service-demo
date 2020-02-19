@@ -1,6 +1,8 @@
 import * as Router from "@koa/router";
+import { findAll, findById, save, remove } from "./packages.repo";
 import { Context } from "koa";
-import { findAll, findById } from "./packages.repo";
+import { Package } from "../entities/Package";
+import * as koaBody from "koa-body";
 
 const router: Router = new Router();
 
@@ -17,9 +19,33 @@ router.get("/:id", async (ctx: Context) => {
   ctx.body = pkg;
 });
 
-// router.post("/", (ctx: Context, next: Next) => {});
-// router.put("/:id", (ctx: Context, next: Next) => {});
-// router.delete("/:id", (ctx: Context, next: Next) => {});
+router.post("/", koaBody(), async (ctx: Context) => {
+  const pkg = await saveFromBody(ctx, new Package())
+  ctx.body = pkg;
+});
+
+router.put("/:id", koaBody(), async (ctx: Context) => {
+  const pkg = await findById(ctx.params.id);
+  const updatedPkg = await saveFromBody(ctx, pkg);
+  ctx.body = updatedPkg;
+});
+
+
+router.delete("/:id", async (ctx: Context) => {
+  const pkg = await findById(ctx.params.id);
+  const deletedPkg = await remove(pkg);
+  ctx.body = deletedPkg;
+});
+
+const saveFromBody = async (ctx:Context, pkg: Package):Promise<Package> => {
+  const { request: { body: json } } = ctx;
+
+  pkg.name = json.name;
+  pkg.description = json.description;
+  pkg.price = json.price;
+  
+  return save(pkg);
+}
 
 export default router;
 export { prefix };
