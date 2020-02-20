@@ -9,6 +9,9 @@ const idParamSchema = Joi.object({
 const pkgSchema = Joi.object({
   name: Joi.string().required(),
   description: Joi.string().required(),
+  products: Joi.array()
+    .min(1)
+    .items(Joi.string()),
   price: Joi.string().required(),
 }).required();
 

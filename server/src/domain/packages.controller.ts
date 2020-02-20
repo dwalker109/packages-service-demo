@@ -5,6 +5,7 @@ import { Package } from "../entities/Package";
 import { validateBody, validateParams } from "../middleware/rest-validate";
 import { findAll, findById, remove, save } from "./packages.repo";
 import { idParamSchema, pkgSchema } from "./packages.schemas";
+import { getProducts } from "./products.service";
 
 const prefix = "/packages";
 
@@ -70,6 +71,12 @@ const saveFromBody = async (ctx: Context, pkg: Package): Promise<Package> => {
   pkg.name = json.name;
   pkg.description = json.description;
   pkg.price = json.price;
+
+  try {
+    pkg.products = await getProducts(json.products);
+  } catch (e) {
+    ctx.throw("Error while fetching product data (invalid id?)", 400);
+  }
 
   return save(pkg);
 };

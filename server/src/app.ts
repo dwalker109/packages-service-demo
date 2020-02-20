@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 import * as Koa from "koa";
 import "reflect-metadata";
 import packages from "./domain/packages.controller";
