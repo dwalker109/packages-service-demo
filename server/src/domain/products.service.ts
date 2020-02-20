@@ -1,4 +1,4 @@
-import fetch, { Headers, Response } from "node-fetch";
+import fetch, { Headers } from "node-fetch";
 import { productService } from "../../config";
 
 const url = productService.url;
@@ -10,7 +10,7 @@ interface ApiProduct {
   usdPrice: number;
 }
 
-type ApiProductCache = Map<string, ApiProduct>
+type ApiProductCache = Map<string, ApiProduct>;
 
 /**
  * Define a cache and clear it on an interval
@@ -37,8 +37,6 @@ const getProduct = async (id: string): Promise<ApiProduct> => {
  * Retrieve multiple products
  */
 const getProducts = async (ids: string[]): Promise<ApiProduct[]> =>
-  Promise.all(
-    ids.map(async id => getProduct(id))
-  );
+  Promise.all(ids.map(async id => getProduct(id)));
 
 export { getProduct, getProducts };

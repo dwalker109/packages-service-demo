@@ -21,7 +21,7 @@ const doValidate = async (
     };
     await schema.validateAsync(dataLookup[part], options);
   } catch (e) {
-    ctx.throw(`Invalid ${part}: ${e}`, 400);
+    ctx.throw(400, `Invalid ${part}: ${e}`);
   }
   await next();
 };

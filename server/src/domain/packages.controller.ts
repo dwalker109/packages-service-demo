@@ -29,6 +29,27 @@ router.get("/:id", validateParams(idParamSchema), async (ctx: Context) => {
 });
 
 /**
+ * Utility func to perform the actual save
+ */
+const saveFromBody = async (ctx: Context, pkg: Package): Promise<Package> => {
+  const {
+    request: { body: json },
+  } = ctx;
+
+  pkg.name = json.name;
+  pkg.description = json.description;
+  pkg.price = json.price;
+
+  try {
+    pkg.products = await getProducts(json.products);
+  } catch (e) {
+    ctx.throw(400, "Error while fetching product data (invalid id?)");
+  }
+
+  return save(pkg);
+};
+
+/**
  * Create
  */
 router.post("/", parseBody(), validateBody(pkgSchema), async (ctx: Context) => {
@@ -59,27 +80,6 @@ router.delete("/:id", validateParams(idParamSchema), async (ctx: Context) => {
   const deletedPkg = await remove(pkg);
   ctx.body = deletedPkg;
 });
-
-/**
- * Utility func to perform the actual save
- */
-const saveFromBody = async (ctx: Context, pkg: Package): Promise<Package> => {
-  const {
-    request: { body: json },
-  } = ctx;
-
-  pkg.name = json.name;
-  pkg.description = json.description;
-  pkg.price = json.price;
-
-  try {
-    pkg.products = await getProducts(json.products);
-  } catch (e) {
-    ctx.throw("Error while fetching product data (invalid id?)", 400);
-  }
-
-  return save(pkg);
-};
 
 export default router;
 export { prefix };
