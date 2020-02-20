@@ -20,10 +20,10 @@ const doValidate = async (
       convert: true,
     };
     await schema.validateAsync(dataLookup[part], options);
-    await next();
   } catch (e) {
     ctx.throw(`Invalid ${part}: ${e}`, 400);
   }
+  await next();
 };
 
 /**
