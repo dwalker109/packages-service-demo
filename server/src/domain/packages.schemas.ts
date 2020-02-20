@@ -1,4 +1,4 @@
-const Joi = require("@hapi/joi");
+import * as Joi from "@hapi/joi";
 
 const idParamSchema = Joi.object({
   id: Joi.number()

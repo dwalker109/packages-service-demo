@@ -11,7 +11,7 @@ const doValidate = async (
   next: Next
 ): Promise<void> => {
   try {
-    const dataLookup: any = {
+    const dataLookup = {
       params: ctx.params,
       body: ctx.request.body,
     };
