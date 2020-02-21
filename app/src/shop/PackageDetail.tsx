@@ -1,4 +1,5 @@
-import React, { FC } from "react";
+import React, { FC, useState, useEffect } from "react";
+import { RouteComponentProps, useParams } from "@reach/router";
 
 export interface Product {
   id: string;
@@ -14,31 +15,39 @@ export interface Package {
   price: number;
 }
 
-interface PackageDetailProps extends Package {}
+const PackageDetail: FC<RouteComponentProps> = () => {
+  const { id } = useParams();
+  const [pkg, setPackage] = useState<Package | null>(null);
 
-const PackageDetail: FC<PackageDetailProps> = ({
-  id,
-  name,
-  description,
-  products,
-  price,
-}) => {
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(`http://localhost:3001/packages/${id}`);
+      const data: Package = await response.json();
+
+      setPackage(data);
+    };
+
+    fetchData();
+  }, [id]);
+
   return (
     <div className="PackageDetail-main">
-      <h2>{name}</h2>
-      <p className="PackageDetail-price">{price}</p>
-      <p className="PackageDetail-description">{description}</p>
-      <ul className="PackageDetail-products">
-        {products.map(product => (
-          <li key={product.id}>{`${product.name} (${product.id})`}</li>
-        ))}
-      </ul>
+      {!pkg ? (
+        <div className="PackageDetail-loading">Loading</div>
+      ) : (
+        <>
+          <h2>{pkg.name}</h2>
+          <p className="PackageDetail-price">{pkg.price}</p>
+          <p className="PackageDetail-description">{pkg.description}</p>
+          <ul className="PackageDetail-products">
+            {pkg.products.map(product => (
+              <li key={product.id}>{`${product.name} (${product.id})`}</li>
+            ))}
+          </ul>
+        </>
+      )}
     </div>
   );
-};
-
-PackageDetail.defaultProps = {
-  products: [],
 };
 
 export default PackageDetail;

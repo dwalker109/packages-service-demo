@@ -2,8 +2,9 @@ import React, { FC, useEffect, useState } from "react";
 import NoPackages from "./NoPackages";
 import { Package } from "./PackageDetail";
 import PackageSummary from "./PackageSummary";
+import { RouteComponentProps } from "@reach/router";
 
-const PackageList: FC = () => {
+const PackageList: FC<RouteComponentProps> = () => {
   const [packages, setPackages] = useState<Package[]>([]);
 
   useEffect(() => {

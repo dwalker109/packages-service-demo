@@ -4,14 +4,17 @@ import { Provider } from "react-redux";
 import "./App.css";
 import rootReducer from "./setupRedux";
 import PackageList from "./shop/PackageList";
+import { Router } from "@reach/router";
+import PackageDetail from "./shop/PackageDetail";
 
 const store = configureStore({ reducer: rootReducer });
 
 const App = () => (
-  // Structure
-
+  <Router>
+    <PackageList path="/" />
+    <PackageDetail path="/package/:id" />
+  </Router>
   // Product List / Product Detail routes
-  <PackageList />
   // Basket
   // Currency Switcher
 );

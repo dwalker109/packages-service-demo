@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { Link } from "@reach/router";
 
 interface PackageSummaryProps {
   id: string;
@@ -8,7 +9,9 @@ interface PackageSummaryProps {
 
 const PackageSummary: FC<PackageSummaryProps> = ({ id, name, price }) => (
   <div className="PackageSummary-main">
-    <h3>{name}</h3>
+    <Link to={`/package/${id}`}>
+      <h3>{name}</h3>
+    </Link>
     <p className="PackageSummary-price">{price}</p>
   </div>
 );
