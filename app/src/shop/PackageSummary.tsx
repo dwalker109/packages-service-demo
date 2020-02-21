@@ -1,18 +1,19 @@
 import React, { FC } from "react";
 import { Link } from "@reach/router";
+import { Package } from "../types";
+import BasketAddButton from "../basket/BasketAddButton";
 
-interface PackageSummaryProps {
-  id: string;
-  name: string;
-  price: number;
-}
+type PackageSummaryProps = {
+  pkg: Package;
+};
 
-const PackageSummary: FC<PackageSummaryProps> = ({ id, name, price }) => (
+const PackageSummary: FC<PackageSummaryProps> = ({ pkg }) => (
   <div className="PackageSummary-main">
-    <Link to={`/package/${id}`}>
-      <h3>{name}</h3>
+    <Link to={`/package/${pkg.id}`}>
+      <h3>{pkg.name}</h3>
     </Link>
-    <p className="PackageSummary-price">{price}</p>
+    <p className="PackageSummary-price">{pkg.price}</p>
+    <BasketAddButton pkg={pkg} quantity={1} />
   </div>
 );
 

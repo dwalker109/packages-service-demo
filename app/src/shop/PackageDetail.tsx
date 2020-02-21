@@ -1,26 +1,14 @@
-import React, { FC, useState, useEffect } from "react";
 import { RouteComponentProps, useParams } from "@reach/router";
-
-export interface Product {
-  id: string;
-  name: string;
-  usdPrice: number;
-}
-
-export interface Package {
-  id: string;
-  name: string;
-  description: string;
-  products: Product[];
-  price: number;
-}
+import React, { FC, useEffect, useState } from "react";
+import BasketAddButton from "../basket/BasketAddButton";
+import { Package } from "../types";
 
 const PackageDetail: FC<RouteComponentProps> = () => {
   const { id } = useParams();
   const [pkg, setPackage] = useState<Package | null>(null);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = async (): Promise<void> => {
       const response = await fetch(`http://localhost:3001/packages/${id}`);
       const data: Package = await response.json();
 
@@ -44,6 +32,7 @@ const PackageDetail: FC<RouteComponentProps> = () => {
               <li key={product.id}>{`${product.name} (${product.id})`}</li>
             ))}
           </ul>
+          <BasketAddButton pkg={pkg} quantity={1} />
         </>
       )}
     </div>

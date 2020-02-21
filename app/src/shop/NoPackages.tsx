@@ -1,5 +1,7 @@
-import React from "react";
+import React, { FC } from "react";
 
-const NoPackages = () => <div className="NoPackages-main">No packages!</div>;
+const NoPackages: FC = () => (
+  <div className="NoPackages-main">No packages!</div>
+);
 
 export default NoPackages;
