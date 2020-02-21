@@ -14,9 +14,7 @@ export interface Package {
   price: number;
 }
 
-interface PackageDetailProps extends Package {
-  // key: string;
-}
+interface PackageDetailProps extends Package {}
 
 const PackageDetail: FC<PackageDetailProps> = ({
   id,

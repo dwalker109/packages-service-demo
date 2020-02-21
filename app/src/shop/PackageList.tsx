@@ -1,6 +1,7 @@
-import React, { useState, useEffect, FC } from "react";
-import PackageDetail, { Package } from "./PackageDetail";
+import React, { FC, useEffect, useState } from "react";
 import NoPackages from "./NoPackages";
+import { Package } from "./PackageDetail";
+import PackageSummary from "./PackageSummary";
 
 const PackageList: FC = () => {
   const [packages, setPackages] = useState<Package[]>([]);
@@ -22,14 +23,7 @@ const PackageList: FC = () => {
         <NoPackages />
       ) : (
         packages.map(({ id, name, description, products, price }) => (
-          <PackageDetail
-            key={id}
-            id={id}
-            name={name}
-            description={description}
-            products={products || undefined}
-            price={price}
-          />
+          <PackageSummary key={id} id={id} name={name} price={price} />
         ))
       )}
     </div>
