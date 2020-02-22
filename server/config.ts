@@ -5,4 +5,9 @@ const productService = {
   maxConcurrent: 10,
 };
 
-export { productService };
+const currencyService = {
+  url: "https://api.exchangeratesapi.io",
+  refreshMs: 1000 * 60 * 60,
+};
+
+export { productService, currencyService };
