@@ -2,21 +2,26 @@ import { RouteComponentProps, useParams } from "@reach/router";
 import React, { FC, useEffect, useState } from "react";
 import BasketAddButton from "../basket/BasketAddButton";
 import { Package } from "../types";
+import { useSelector } from "react-redux";
+import { selectCurrency } from "../currency/currencySelectors";
 
 const PackageDetail: FC<RouteComponentProps> = () => {
   const { id } = useParams();
   const [pkg, setPackage] = useState<Package | null>(null);
+  const { active: currency } = useSelector(selectCurrency);
 
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
-      const response = await fetch(`http://localhost:3001/packages/${id}`);
+      const response = await fetch(
+        `http://localhost:3001/packages/${id}?currency=${currency}`
+      );
       const data: Package = await response.json();
 
       setPackage(data);
     };
 
     fetchData();
-  }, [id]);
+  }, [id, currency]);
 
   return (
     <div className="PackageDetail-main">
