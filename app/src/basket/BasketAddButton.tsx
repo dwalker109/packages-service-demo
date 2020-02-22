@@ -1,23 +1,18 @@
-import React, { FC } from "react";
 import { PayloadAction } from "@reduxjs/toolkit";
-import { AddToBasketPayload, Package } from "../types";
+import React, { FC } from "react";
 import { useDispatch } from "react-redux";
+import { Package } from "../types";
 import { addToBasket } from "./basketSlice";
 
 type AddToBasketProps = {
   pkg: Package;
-  quantity: number;
 };
 
-const AddToBasket: FC<AddToBasketProps> = ({ pkg, quantity }) => {
+const AddToBasket: FC<AddToBasketProps> = ({ pkg }) => {
   const dispatch = useDispatch();
 
   return (
-    <button
-      onClick={(): PayloadAction<AddToBasketPayload> =>
-        dispatch(addToBasket({ item: pkg, quantity: 1 }))
-      }
-    >
+    <button onClick={(): PayloadAction<Package> => dispatch(addToBasket(pkg))}>
       Add to basket
     </button>
   );

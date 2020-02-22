@@ -37,7 +37,7 @@ const PackageDetail: FC<RouteComponentProps> = () => {
               <li key={product.id}>{`${product.name} (${product.id})`}</li>
             ))}
           </ul>
-          <BasketAddButton pkg={pkg} quantity={1} />
+          <BasketAddButton pkg={pkg} />
         </>
       )}
     </div>

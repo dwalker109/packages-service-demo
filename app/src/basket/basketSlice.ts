@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AddToBasketPayload, BasketState } from "../types";
+import { BasketState, Package } from "../types";
 
 const initialState: BasketState = {
   items: [],
@@ -9,10 +9,11 @@ const basketSlice = createSlice({
   initialState,
   name: "basket",
   reducers: {
-    addToBasket(state, action: PayloadAction<AddToBasketPayload>): void {
-      for (let q = 0; q < action.payload.quantity; q++) {
-        state.items.push(action.payload.item);
-      }
+    addToBasket(state, action: PayloadAction<Package>): void {
+      state.items.push(action.payload);
+    },
+    removeFromBasket(state, action: PayloadAction<number>): void {
+      state.items = state.items.filter((_, index) => index !== action.payload);
     },
     clearBasket(): BasketState {
       return initialState;
@@ -20,5 +21,10 @@ const basketSlice = createSlice({
   },
 });
 
-export const { addToBasket, clearBasket } = basketSlice.actions;
+export const {
+  addToBasket,
+  removeFromBasket,
+  clearBasket,
+} = basketSlice.actions;
+
 export default basketSlice.reducer;

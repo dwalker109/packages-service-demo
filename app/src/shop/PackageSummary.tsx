@@ -13,7 +13,7 @@ const PackageSummary: FC<PackageSummaryProps> = ({ pkg }) => (
       <h3>{pkg.name}</h3>
     </Link>
     <p className="PackageSummary-price">{pkg.price}</p>
-    <BasketAddButton pkg={pkg} quantity={1} />
+    <BasketAddButton pkg={pkg} />
   </div>
 );
 

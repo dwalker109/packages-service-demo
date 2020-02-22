@@ -1,17 +1,16 @@
+import { RouteComponentProps } from "@reach/router";
 import React, { FC } from "react";
 import { useSelector } from "react-redux";
 import { BasketLine } from "../types";
 import { selectBasketSummarised } from "./basketSelectors";
 
-const BasketPage: FC = () => null;
-
-const BasketWidget: FC = () => {
+const BasketPage: FC<RouteComponentProps> = () => {
   const { basketLines, subtotal, discount, grandTotal } = useSelector(
     selectBasketSummarised
   );
 
   return (
-    <div className="BasketWidget-main">
+    <div className="BasketPage-main">
       <ul>
         {basketLines.map((basketLine, index) => (
           <BasketLineWidget key={index} {...basketLine} />
@@ -30,5 +29,19 @@ const BasketLineWidget: FC<BasketLine> = ({ pkg, quantity }) => (
     <span className="BasketLineWidget-qty">{quantity}</span>
   </li>
 );
+
+const BasketWidget: FC = () => {
+  const { subtotal, discount, grandTotal } = useSelector(
+    selectBasketSummarised
+  );
+
+  return (
+    <div className="BasketWidget-main">
+      <div className="BasketWidget-subtotal">{subtotal}</div>
+      <div className="BasketWidget-discount">{discount}</div>
+      <div className="BasketWidget-grandTotal">{grandTotal}</div>
+    </div>
+  );
+};
 
 export { BasketPage, BasketWidget };
