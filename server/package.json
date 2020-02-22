@@ -19,6 +19,7 @@
     "@hapi/joi": "^17.1.0",
     "@koa/cors": "^2.2.3",
     "@koa/router": "^8.0.8",
+    "bottleneck": "^2.19.5",
     "dotenv": "^8.2.0",
     "koa": "^2.11.0",
     "koa-body": "^4.1.1",

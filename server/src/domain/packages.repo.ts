@@ -1,7 +1,7 @@
-import { getRepository } from "typeorm";
+import { getRepository, Repository } from "typeorm";
 import { Package } from "../entities/Package";
 
-const pr = () => getRepository(Package);
+const pr = (): Repository<Package> => getRepository(Package);
 
 /**
  * Retrieve all items

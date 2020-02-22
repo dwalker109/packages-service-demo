@@ -17,7 +17,7 @@ const doValidate = async (
     };
     const options: AsyncValidationOptions = {
       abortEarly: false,
-      convert: true,
+      convert: false,
     };
     await schema.validateAsync(dataLookup[part], options);
   } catch (e) {

@@ -12,7 +12,8 @@ const pkgSchema = Joi.object({
   products: Joi.array()
     .min(1)
     .items(Joi.string()),
-  price: Joi.string().required(),
+  price: Joi.number(),
+  currency: Joi.string().length(3),
 }).required();
 
 export { idParamSchema, pkgSchema };

@@ -12,7 +12,7 @@ export class Package {
   description: string;
 
   @Column({ type: "simple-json", nullable: true })
-  products?: { id: string; name: string; usdPrice: number }[];
+  products: { id: string; name: string; usdPrice: number }[];
 
   @Column()
   price: number;

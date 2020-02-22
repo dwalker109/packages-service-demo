@@ -1,14 +1,21 @@
-import fetch, { Headers } from "node-fetch";
+import fetch, { Headers, RequestInfo, RequestInit, Response } from "node-fetch";
 import { productService } from "../../config";
+import Bottleneck from "bottleneck";
 
-const url = productService.url;
-const authToken = productService.authToken;
+const { url, authToken, minTime, maxConcurrent } = productService;
 
-interface ApiProduct {
+// Define a rate limited instance of fetch to avoid API blocking
+const limiter = new Bottleneck({ minTime, maxConcurrent });
+const rateLimitedFetch: (
+  url: RequestInfo,
+  init: RequestInit
+) => Promise<Response> = limiter.wrap(fetch);
+
+type ApiProduct = {
   id: string;
   name: string;
   usdPrice: number;
-}
+};
 
 type ApiProductCache = Map<string, ApiProduct>;
 
@@ -26,7 +33,7 @@ const getProduct = async (id: string): Promise<ApiProduct> => {
   if (product) return product;
 
   const headers = new Headers({ Authorization: `Basic ${authToken}` });
-  const response = await fetch(`${url}/${id}`, { headers });
+  const response = await rateLimitedFetch(`${url}/${id}`, { headers });
   product = await response.json();
   cache.set(id, product);
 

@@ -5,7 +5,7 @@ import { Package } from "../entities/Package";
 import { validateBody, validateParams } from "../middleware/rest-validate";
 import { findAll, findById, remove, save } from "./packages.repo";
 import { idParamSchema, pkgSchema } from "./packages.schemas";
-import { getProducts } from "./products.service";
+import { getProducts } from "../services/products.service";
 
 const prefix = "/packages";
 
@@ -36,15 +36,24 @@ const saveFromBody = async (ctx: Context, pkg: Package): Promise<Package> => {
     request: { body: json },
   } = ctx;
 
-  pkg.name = json.name;
-  pkg.description = json.description;
-  pkg.price = json.price;
-
+  // Pull the provided product ids and save expanded details
   try {
     pkg.products = await getProducts(json.products);
   } catch (e) {
-    ctx.throw(400, "Error while fetching product data (invalid id?)");
+    ctx.throw(
+      400,
+      "Error while fetching product data (invalid id or token not set in .env?)"
+    );
   }
+
+  pkg.name = json.name;
+  pkg.description = json.description;
+
+  // Use a provided price, or calculate from products if not specified
+  pkg.price =
+    json.price !== undefined
+      ? json.price
+      : pkg.products.reduce((acc, cur) => acc + cur.usdPrice, 0);
 
   return save(pkg);
 };
