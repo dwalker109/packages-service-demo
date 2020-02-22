@@ -26,10 +26,12 @@ export type Product = {
 type ProductCache = Map<string, Product>;
 
 /**
- * Define a cache and clear it on an interval
+ * Define a cache and clear it on an interval - also define a function
+ * to allow it to be shutdown on service close (or tests ending)
  */
 const cache: ProductCache = new Map();
-setInterval(() => cache.clear(), 60 * 1000);
+const cacheTimer = setInterval(() => cache.clear(), 60 * 1000);
+const shutdown = (): void => clearInterval(cacheTimer);
 
 /**
  * Retrieve and cache a product
@@ -61,4 +63,4 @@ const getProduct = async (id: string): Promise<Product> => {
 const getProducts = async (ids: string[]): Promise<Product[]> =>
   Promise.all(ids.map(async id => getProduct(id)));
 
-export { getProduct, getProducts };
+export { getProduct, getProducts, shutdown };

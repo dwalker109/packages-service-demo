@@ -5,6 +5,7 @@ import app from "../app";
 import { initTestConnection } from "../db";
 import { Package } from "../entities/Package";
 import { prefix } from "./packages.controller";
+import { shutdown as productsServiceShutdown } from "../services/products.service";
 
 const server = app.callback();
 
@@ -14,6 +15,7 @@ beforeAll(async () => {
 
 afterAll(async () => {
   await getConnection().close();
+  productsServiceShutdown();
 });
 
 beforeEach(async () => {
