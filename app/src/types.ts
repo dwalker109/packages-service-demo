@@ -11,16 +11,28 @@ export type AddToBasketPayload = {
   quantity: number;
 };
 
-export interface Package {
+export type BasketLine = {
+  pkg: Package;
+  quantity: number;
+};
+
+export type BasketSummary = {
+  basketLines: BasketLine[];
+  subtotal: number;
+  discount: number;
+  grandTotal: number;
+};
+
+export type Package = {
   id: string;
   name: string;
   description: string;
   products: Product[];
   price: number;
-}
+};
 
-export interface Product {
+export type Product = {
   id: string;
   name: string;
   usdPrice: number;
-}
+};
