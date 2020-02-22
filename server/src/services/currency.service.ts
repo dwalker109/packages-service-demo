@@ -24,6 +24,11 @@ const cacheRates = async (): Promise<NodeJS.Timer> => {
 };
 
 /**
+ * Retrieve all available rates from the cache
+ */
+const getAvailableRates = (): string[] => Array.from(cache.keys());
+
+/**
  * Retrieve a rate from the cache
  */
 const getRate = (currency: string): number => {
@@ -43,4 +48,4 @@ const convert = (usdAmount: number, currency: string): number => {
   return usdAmount * rate;
 };
 
-export { cacheRates, getRate, convert };
+export { cacheRates, getAvailableRates, getRate, convert };

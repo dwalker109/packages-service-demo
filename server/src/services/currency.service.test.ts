@@ -1,4 +1,9 @@
-import { cacheRates, getRate, convert } from "./currency.service";
+import {
+  cacheRates,
+  getRate,
+  convert,
+  getAvailableRates,
+} from "./currency.service";
 
 let timer: NodeJS.Timer;
 beforeAll(async () => {
@@ -10,6 +15,12 @@ afterAll(async () => {
 });
 
 describe("Currency fetching", () => {
+  it("Can retrieve a list of available rates", async () => {
+    const rates = getAvailableRates();
+    expect(Array.isArray(rates)).toBeTruthy();
+    expect(rates.includes("USD")).toBeTruthy();
+  });
+
   it("Can retrieve a rate", async () => {
     const euroRate = getRate("EUR");
     expect(typeof euroRate).toBe("number");
