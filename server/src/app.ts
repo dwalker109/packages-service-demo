@@ -1,4 +1,5 @@
-require("dotenv").config();
+const { error } = require("dotenv").config();
+if (error) throw new Error(error);
 
 import * as Koa from "koa";
 import * as logger from "koa-logger";
