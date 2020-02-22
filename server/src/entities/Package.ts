@@ -1,4 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Product } from "../services/products.service";
 
 @Entity()
 export class Package {
@@ -12,7 +13,7 @@ export class Package {
   description: string;
 
   @Column({ type: "simple-json", nullable: true })
-  products: { id: string; name: string; usdPrice: number }[];
+  products: Product[];
 
   @Column()
   price: number;

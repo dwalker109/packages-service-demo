@@ -40,7 +40,7 @@ const getRate = (currency: string): number => {
  */
 const convert = (usdAmount: number, currency: string): number => {
   const rate = getRate(currency);
-  return usdAmount / rate;
+  return usdAmount * rate;
 };
 
 export { cacheRates, getRate, convert };

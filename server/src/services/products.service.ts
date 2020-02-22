@@ -17,24 +17,39 @@ type ApiProduct = {
   usdPrice: number;
 };
 
-type ApiProductCache = Map<string, ApiProduct>;
+export type Product = {
+  id: string;
+  name: string;
+  price: number;
+};
+
+type ProductCache = Map<string, Product>;
 
 /**
  * Define a cache and clear it on an interval
  */
-const cache: ApiProductCache = new Map();
+const cache: ProductCache = new Map();
 setInterval(() => cache.clear(), 60 * 1000);
 
 /**
  * Retrieve and cache a product
  */
-const getProduct = async (id: string): Promise<ApiProduct> => {
-  let product = cache.get(id);
+const getProduct = async (id: string): Promise<Product> => {
+  // Return straight from cache if we have it
+  let product: Product = cache.get(id);
   if (product) return product;
 
+  // Not in cache, retrieve via API
   const headers = new Headers({ Authorization: `Basic ${authToken}` });
   const response = await rateLimitedFetch(`${url}/${id}`, { headers });
-  product = await response.json();
+  const apiProduct: ApiProduct = await response.json();
+
+  // Convert to our local type, and cache
+  product = {
+    id: apiProduct.id,
+    name: apiProduct.name,
+    price: apiProduct.usdPrice,
+  };
   cache.set(id, product);
 
   return product;
@@ -43,7 +58,7 @@ const getProduct = async (id: string): Promise<ApiProduct> => {
 /**
  * Retrieve multiple products
  */
-const getProducts = async (ids: string[]): Promise<ApiProduct[]> =>
+const getProducts = async (ids: string[]): Promise<Product[]> =>
   Promise.all(ids.map(async id => getProduct(id)));
 
 export { getProduct, getProducts };

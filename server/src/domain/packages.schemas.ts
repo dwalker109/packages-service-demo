@@ -1,10 +1,14 @@
 import * as Joi from "@hapi/joi";
 
-const idParamSchema = Joi.object({
+const idSchema = Joi.object({
   id: Joi.number()
     .integer()
     .required(),
 }).required();
+
+const currencySchema = Joi.object({
+  currency: Joi.string().length(3),
+});
 
 const pkgSchema = Joi.object({
   name: Joi.string().required(),
@@ -12,8 +16,7 @@ const pkgSchema = Joi.object({
   products: Joi.array()
     .min(1)
     .items(Joi.string()),
-  price: Joi.number(),
-  currency: Joi.string().length(3),
+  price: Joi.number().strict(),
 }).required();
 
-export { idParamSchema, pkgSchema };
+export { idSchema, currencySchema, pkgSchema };

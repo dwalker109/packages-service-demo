@@ -1,11 +1,16 @@
 import * as Router from "@koa/router";
-import { Context } from "koa";
+import { Context, Next } from "koa";
 import * as parseBody from "koa-body";
 import { Package } from "../entities/Package";
-import { validateBody, validateParams } from "../middleware/rest-validate";
-import { findAll, findById, remove, save } from "./packages.repo";
-import { idParamSchema, pkgSchema } from "./packages.schemas";
+import { convertCurrency } from "../middleware/convert-currency";
+import {
+  validateBody,
+  validateParams,
+  validateQueries,
+} from "../middleware/rest-validate";
 import { getProducts } from "../services/products.service";
+import { findAll, findById, remove, save } from "./packages.repo";
+import { currencySchema, idSchema, pkgSchema } from "./packages.schemas";
 
 const prefix = "/packages";
 
@@ -15,21 +20,34 @@ router.prefix(prefix);
 /**
  * Index
  */
-router.get("/", async (ctx: Context) => {
-  const packages = await findAll();
-  ctx.body = packages;
-});
+router.get(
+  "/",
+  validateQueries(currencySchema),
+  async (ctx: Context, next: Next) => {
+    const packages = await findAll();
+    ctx.body = packages;
+    await next();
+  },
+  convertCurrency()
+);
 
 /**
  * Read
  */
-router.get("/:id", validateParams(idParamSchema), async (ctx: Context) => {
-  const pkg = await findById(ctx.params.id);
-  ctx.body = pkg;
-});
+router.get(
+  "/:id",
+  validateParams(idSchema),
+  validateQueries(currencySchema),
+  async (ctx: Context, next: Next) => {
+    const pkg = await findById(ctx.params.id);
+    ctx.body = pkg;
+    await next();
+  },
+  convertCurrency()
+);
 
 /**
- * Utility func to perform the actual save
+ * Worker func to process and perform a save
  */
 const saveFromBody = async (ctx: Context, pkg: Package): Promise<Package> => {
   const {
@@ -53,7 +71,7 @@ const saveFromBody = async (ctx: Context, pkg: Package): Promise<Package> => {
   pkg.price =
     json.price !== undefined
       ? json.price
-      : pkg.products.reduce((acc, cur) => acc + cur.usdPrice, 0);
+      : pkg.products.reduce((acc, cur) => acc + cur.price, 0);
 
   return save(pkg);
 };
@@ -72,7 +90,7 @@ router.post("/", parseBody(), validateBody(pkgSchema), async (ctx: Context) => {
 router.put(
   "/:id",
   parseBody(),
-  validateParams(idParamSchema),
+  validateParams(idSchema),
   validateBody(pkgSchema),
   async (ctx: Context) => {
     const pkg = await findById(ctx.params.id);
@@ -84,7 +102,7 @@ router.put(
 /**
  * Delete
  */
-router.delete("/:id", validateParams(idParamSchema), async (ctx: Context) => {
+router.delete("/:id", validateParams(idSchema), async (ctx: Context) => {
   const pkg = await findById(ctx.params.id);
   const deletedPkg = await remove(pkg);
   ctx.body = deletedPkg;
