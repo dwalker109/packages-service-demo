@@ -33,8 +33,8 @@ const PackageDetail: FC = () => {
           <p className="PackageDetail-price">{pkg.price}</p>
           <p className="PackageDetail-description">{pkg.description}</p>
           <ul className="PackageDetail-products">
-            {pkg.products.map(product => (
-              <li key={product.id}>{`${product.name} (${product.id})`}</li>
+            {pkg.products.map((product, index) => (
+              <li key={index}>{`${product.name} (${product.id})`}</li>
             ))}
           </ul>
           <BasketAddButton pkg={pkg} />
