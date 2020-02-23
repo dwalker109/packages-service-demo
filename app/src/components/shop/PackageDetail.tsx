@@ -1,15 +1,14 @@
-import { useParams, Link } from "@reach/router";
+import { useParams } from "@reach/router";
 import React, { FC, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Package } from "../../types";
 import BasketAddButton from "../basket/BasketAddButton";
+import BackToListing from "../chrome/BackToListings";
+import Loading from "../chrome/Loading";
 import {
   selectCurrency,
   selectCurrencyFormatter,
 } from "../currency/currencySelectors";
-import Loading from "../chrome/Loading";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
 const PackageDetail: FC = () => {
   const { id } = useParams();
@@ -66,11 +65,7 @@ const PackageDetail: FC = () => {
               }}
             />
           </div>
-          <Link to="/">
-            <div className="pt-8 text-blue-500">
-              <FontAwesomeIcon icon={faChevronLeft} /> Back to package listings
-            </div>
-          </Link>
+          <BackToListing />
         </>
       )}
     </>

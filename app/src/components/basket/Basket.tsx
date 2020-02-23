@@ -7,51 +7,82 @@ import { selectCurrencyFormatter } from "../currency/currencySelectors";
 import { selectBasketSummarised } from "./basketSelectors";
 import { addToBasket, removeFromBasket } from "./basketSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShoppingBasket } from "@fortawesome/free-solid-svg-icons";
+import {
+  faShoppingBasket,
+  faPlus,
+  faMinus,
+} from "@fortawesome/free-solid-svg-icons";
+import BackToListing from "../chrome/BackToListings";
 
 const BasketDetail: FC<RouteComponentProps> = () => {
   const { basketLines, subtotal, discount, grandTotal } = useSelector(
     selectBasketSummarised
   );
-  const { format } = useSelector(selectCurrencyFormatter);
 
   return (
-    <div className="BasketDetail-main">
-      <ul>
-        {basketLines.map(basketLine => (
-          <BasketLineWidget key={basketLine.pkg.id} {...basketLine} />
-        ))}
-      </ul>
-      <div className="BasketDetail-subtotal">{format(subtotal)}</div>
-      <div className="BasketDetail-discount">{format(discount)}</div>
-      <div className="BasketDetail-grandTotal">{format(grandTotal)}</div>
-    </div>
+    <>
+      <div className="border rounded-lg border-gray-300">
+        <div className="p-8">
+          <BasketLinesTable basketLines={basketLines} />
+        </div>
+        <div className="p-8 text-center">
+          <CurrencyLine label="Subtotal" amount={subtotal} />
+          <CurrencyLine label="Discount" amount={discount} />
+          <CurrencyLine label="Grand Total" amount={grandTotal} />
+        </div>
+        <div className="bg-gray-200 rounded-lg rounded-t-none p-8 text-center">
+          <button className="btn-default">Checkout</button>
+        </div>
+      </div>
+      <BackToListing />
+    </>
   );
 };
 
-const BasketLineWidget: FC<BasketLine> = ({ pkg, quantity }) => {
+const BasketLinesTable: FC<{ basketLines: BasketLine[] }> = ({
+  basketLines,
+}) => {
   const dispatch = useDispatch();
 
   return (
-    <li className="BasketLineWidget-main">
-      <span className="BasketLineWidget-name">{pkg.name}</span>
-      <span className="BasketLineWidget-id">{pkg.id}</span>
-      <span className="BasketLineWidget-qty">{quantity}</span>
-      <div className="BasketLineWidget-actions">
-        <button
-          onClick={(): PayloadAction<Package> => dispatch(addToBasket(pkg))}
-        >
-          +
-        </button>
-        <button
-          onClick={(): PayloadAction<Package> =>
-            dispatch(removeFromBasket(pkg))
-          }
-        >
-          -
-        </button>
-      </div>
-    </li>
+    <table className="table-auto w-full">
+      <thead>
+        <tr>
+          <th className="px-4 py-2">Packages</th>
+          <th className="px-4 py-2">Quantity</th>
+          <th className="px-4 py-2"></th>
+          <th className="px-4 py-2"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {basketLines.map(({ pkg, quantity }) => (
+          <tr key={pkg.id} className="text-center">
+            <td className="px-4 py-2">{pkg.name}</td>
+            <td className="px-4 py-2">{quantity}</td>
+            <td className="px-4 py-2">
+              <button
+                className="btn-default"
+                onClick={(): PayloadAction<Package> =>
+                  dispatch(addToBasket(pkg))
+                }
+              >
+                <FontAwesomeIcon icon={faPlus} />
+              </button>
+            </td>
+            <td className="px-4 py-2">
+              <button
+                className="btn-default"
+                onClick={(): PayloadAction<Package> =>
+                  dispatch(removeFromBasket(pkg))
+                }
+              >
+                <FontAwesomeIcon icon={faMinus} />
+              </button>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
   );
 };
 
