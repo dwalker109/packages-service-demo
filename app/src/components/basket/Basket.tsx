@@ -6,6 +6,8 @@ import { BasketLine, Package } from "../../types";
 import { selectCurrencyFormatter } from "../currency/currencySelectors";
 import { selectBasketSummarised } from "./basketSelectors";
 import { addToBasket, removeFromBasket } from "./basketSlice";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShoppingBasket } from "@fortawesome/free-solid-svg-icons";
 
 const BasketDetail: FC<RouteComponentProps> = () => {
   const { basketLines, subtotal, discount, grandTotal } = useSelector(
@@ -64,7 +66,9 @@ const BasketWidget: FC = () => {
       <CurrencyLine label="Discount" amount={discount} />
       <CurrencyLine label="Grand Total" amount={grandTotal} />
       <Link to="/basket">
-        <button className="btn-default">View full basket</button>
+        <button className="btn-default">
+          <FontAwesomeIcon icon={faShoppingBasket} /> View full basket
+        </button>
       </Link>
     </div>
   );

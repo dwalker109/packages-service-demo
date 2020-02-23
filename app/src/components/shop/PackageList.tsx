@@ -9,6 +9,8 @@ import {
   sortings,
   sortPackages,
 } from "./packageUtils";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 const PackageList: FC = () => {
   const [apiPackages, setApiPackages] = useState<Package[]>([]);
@@ -66,7 +68,14 @@ const PackageList: FC = () => {
       </div>
       <div className="PackageList-main">
         {!displayPackages.length ? (
-          <div className="PackageList-no-packages">No packages!</div>
+          <div className="flex justify-center">
+            <FontAwesomeIcon
+              icon={faSpinner}
+              spin={true}
+              size="4x"
+              className="text-blue-500"
+            />
+          </div>
         ) : (
           <div className="PackageList-packages">
             {displayPackages.map(pkg => (
