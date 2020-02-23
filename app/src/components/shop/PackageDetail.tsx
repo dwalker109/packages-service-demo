@@ -1,11 +1,11 @@
-import { RouteComponentProps, useParams } from "@reach/router";
+import { useParams } from "@reach/router";
 import React, { FC, useEffect, useState } from "react";
-import BasketAddButton from "../basket/BasketAddButton";
-import { Package } from "../types";
 import { useSelector } from "react-redux";
+import { Package } from "../../types";
+import BasketAddButton from "../basket/BasketAddButton";
 import { selectCurrency } from "../currency/currencySelectors";
 
-const PackageDetail: FC<RouteComponentProps> = () => {
+const PackageDetail: FC = () => {
   const { id } = useParams();
   const [pkg, setPackage] = useState<Package | null>(null);
   const { active: currency } = useSelector(selectCurrency);

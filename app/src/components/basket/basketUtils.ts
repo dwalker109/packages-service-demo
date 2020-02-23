@@ -1,4 +1,4 @@
-import { Package, BasketLine } from "../types";
+import { Package, BasketLine } from "../../types";
 
 /**
  * Create an array of BasketLines from basket items

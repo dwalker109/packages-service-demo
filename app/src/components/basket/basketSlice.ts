@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { BasketState, Package } from "../types";
+import { BasketState, Package } from "../../types";
 
 const initialState: BasketState = {
   items: [],

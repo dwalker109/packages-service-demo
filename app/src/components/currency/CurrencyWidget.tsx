@@ -11,7 +11,7 @@ const CurrencyWidget: FC = () => {
 
   useEffect(() => {
     dispatch(thunkFetchCurrencies());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="CurrencyWidget-main">

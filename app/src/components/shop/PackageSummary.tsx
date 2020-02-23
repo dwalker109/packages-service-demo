@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { Link } from "@reach/router";
-import { Package } from "../types";
+import { Package } from "../../types";
 import BasketAddButton from "../basket/BasketAddButton";
 
 type PackageSummaryProps = {

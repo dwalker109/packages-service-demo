@@ -1,12 +1,10 @@
 import React, { FC, useEffect, useState } from "react";
-import NoPackages from "./NoPackages";
-import { Package } from "../types";
-import PackageSummary from "./PackageSummary";
-import { RouteComponentProps } from "@reach/router";
 import { useSelector } from "react-redux";
+import { Package } from "../../types";
 import { selectCurrency } from "../currency/currencySelectors";
+import PackageSummary from "./PackageSummary";
 
-const PackageList: FC<RouteComponentProps> = () => {
+const PackageList: FC = () => {
   const [packages, setPackages] = useState<Package[]>([]);
   const { active: currency } = useSelector(selectCurrency);
 
@@ -33,5 +31,9 @@ const PackageList: FC<RouteComponentProps> = () => {
     </div>
   );
 };
+
+const NoPackages: FC = () => (
+  <div className="NoPackages-main">No packages!</div>
+);
 
 export default PackageList;

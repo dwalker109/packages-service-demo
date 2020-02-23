@@ -1,5 +1,5 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { BasketState, BasketSummary, RootState } from "../types";
+import { BasketState, BasketSummary, RootState } from "../../types";
 import {
   calcBasketLines,
   calcDiscount,

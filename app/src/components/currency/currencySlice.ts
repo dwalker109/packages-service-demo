@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AppThunk, CurrencyState } from "../types";
+import { AppThunk, CurrencyState } from "../../types";
 
 const initialState: CurrencyState = {
   available: ["USD"],

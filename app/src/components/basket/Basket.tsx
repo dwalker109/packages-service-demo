@@ -1,10 +1,10 @@
 import { RouteComponentProps } from "@reach/router";
 import React, { FC } from "react";
 import { useSelector } from "react-redux";
-import { BasketLine } from "../types";
+import { BasketLine } from "../../types";
 import { selectBasketSummarised } from "./basketSelectors";
 
-const BasketPage: FC<RouteComponentProps> = () => {
+const BasketDetail: FC<RouteComponentProps> = () => {
   const { basketLines, subtotal, discount, grandTotal } = useSelector(
     selectBasketSummarised
   );
@@ -44,4 +44,4 @@ const BasketWidget: FC = () => {
   );
 };
 
-export { BasketPage, BasketWidget };
+export { BasketDetail, BasketWidget };

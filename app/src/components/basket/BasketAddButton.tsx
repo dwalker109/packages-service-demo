@@ -1,7 +1,7 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import React, { FC } from "react";
 import { useDispatch } from "react-redux";
-import { Package } from "../types";
+import { Package } from "../../types";
 import { addToBasket } from "./basketSlice";
 
 type AddToBasketProps = {
