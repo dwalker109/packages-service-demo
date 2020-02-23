@@ -12,8 +12,11 @@ const basketSlice = createSlice({
     addToBasket(state, action: PayloadAction<Package>): void {
       state.items.push(action.payload);
     },
-    removeFromBasket(state, action: PayloadAction<number>): void {
-      state.items = state.items.filter((_, index) => index !== action.payload);
+    removeFromBasket(state, action: PayloadAction<Package>): void {
+      const toRemove = state.items.findIndex(
+        item => item.id === action.payload.id
+      );
+      state.items.splice(toRemove, 1);
     },
     clearBasket(): BasketState {
       return initialState;

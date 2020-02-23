@@ -13,7 +13,10 @@ export const calcBasketLines = (items: Package[]): BasketLine[] => {
     workingItem.quantity++;
     basketLinesMap.set(item.id, workingItem);
   });
-  return Array.from(basketLinesMap.values());
+  // When converting back to an array, ensure order is consistent (package internal id)
+  return Array.from(basketLinesMap.values()).sort((a, b) =>
+    a.pkg.id < b.pkg.id ? -1 : +1
+  );
 };
 
 /**
