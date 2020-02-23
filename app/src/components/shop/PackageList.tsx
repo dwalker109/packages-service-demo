@@ -39,17 +39,19 @@ const PackageList: FC = () => {
   }, [filter, apiPackages, sort]);
 
   return (
-    <div className="PackageList-main">
-      <div className="PackageList-tools">
+    <div className="">
+      <div className="flex justify-between pb-6">
         <input
-          className="PackageList-filter"
+          className="flex-1 shadow appearance-none border rounded-lg rounded-r-none py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          placeholder="Type to filter..."
           value={filter}
           onChange={(e: ChangeEvent<HTMLInputElement>): void =>
             setFilter(e.target.value)
           }
         />
         <select
-          className="PackageList-sort"
+          className="shadow appearance-none border rounded-lg rounded-l-none py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          name="choose-sort"
           value={sort.id}
           onChange={(e: ChangeEvent<HTMLSelectElement>): void =>
             setSort(sortings.get(e.target.value as ValidSorts) || defaultSort)
@@ -62,15 +64,17 @@ const PackageList: FC = () => {
           ))}
         </select>
       </div>
-      {!displayPackages.length ? (
-        <div className="PackageList-no-packages">No packages!</div>
-      ) : (
-        <div className="PackageList-packages">
-          {displayPackages.map(pkg => (
-            <PackageSummary key={pkg.id} pkg={pkg} />
-          ))}
-        </div>
-      )}
+      <div className="PackageList-main">
+        {!displayPackages.length ? (
+          <div className="PackageList-no-packages">No packages!</div>
+        ) : (
+          <div className="PackageList-packages">
+            {displayPackages.map(pkg => (
+              <PackageSummary key={pkg.id} pkg={pkg} />
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

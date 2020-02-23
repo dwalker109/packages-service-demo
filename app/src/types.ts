@@ -9,7 +9,7 @@ export type SortDef = {
   id: ValidSorts;
   text: string;
   term: "name" | "price";
-  direction: "asc" | "desc";
+  dir: "asc" | "desc";
 };
 
 export type SortingOptions = Map<ValidSorts, SortDef>;

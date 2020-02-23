@@ -57,14 +57,29 @@ const BasketWidget: FC = () => {
   const { subtotal, discount, grandTotal } = useSelector(
     selectBasketSummarised
   );
+
+  return (
+    <div className="text-right">
+      <CurrencyLine label="Subtotal" amount={subtotal} />
+      <CurrencyLine label="Discount" amount={discount} />
+      <CurrencyLine label="Grand Total" amount={grandTotal} />
+      <Link to="/basket">
+        <button className="btn-default">View full basket</button>
+      </Link>
+    </div>
+  );
+};
+
+const CurrencyLine: FC<{ label: string; amount: number }> = ({
+  label,
+  amount,
+}) => {
   const { format } = useSelector(selectCurrencyFormatter);
 
   return (
-    <div className="BasketWidget-main">
-      <div className="BasketWidget-subtotal">{format(subtotal)}</div>
-      <div className="BasketWidget-discount">{format(discount)}</div>
-      <div className="BasketWidget-grandTotal">{format(grandTotal)}</div>
-      <Link to="/basket">View full basket</Link>
+    <div className="">
+      <span className="font-hairline pr-2">{label}</span>
+      <span>{format(amount)}</span>
     </div>
   );
 };

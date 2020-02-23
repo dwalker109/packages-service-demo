@@ -16,57 +16,62 @@ const filterPackages = (packages: Package[], term: string): Package[] => {
 };
 
 /**
- * Setup the various sort constructs and construct a Map
+ * Setup the various sort constructs and construct a Map (this
+ * makes lookups from the TSX more straightforward)
  */
 const sortingsSetup: [ValidSorts, SortDef][] = [
   [
     "name asc",
-    { id: "name asc", text: "Name, ascending", term: "name", direction: "asc" },
+    {
+      id: "name asc",
+      text: "Sort by name, A-Z",
+      term: "name",
+      dir: "asc",
+    },
   ],
   [
     "name desc",
     {
       id: "name desc",
-      text: "Name, descending",
+      text: "Sort by name, Z-A",
       term: "name",
-      direction: "desc",
+      dir: "desc",
     },
   ],
   [
     "price asc",
     {
       id: "price asc",
-      text: "Price, ascending",
+      text: "Sort by price, low to high",
       term: "price",
-      direction: "asc",
+      dir: "asc",
     },
   ],
   [
     "price desc",
     {
       id: "price desc",
-      text: "Price, descending",
+      text: "Sort by price, high to low",
       term: "price",
-      direction: "desc",
+      dir: "desc",
     },
   ],
 ];
 const sortings: SortingOptions = new Map(sortingsSetup);
+/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */
+const defaultSort = sortings.get("name asc")!;
 
 /**
  * Sort a package list based on provided sort def
  */
 const sortPackages = (packages: Package[], sort: SortDef): Package[] => {
   const { term } = sort;
-  const [sda, sdb] = sort.direction === "asc" ? [-1, +1] : [+1, -1];
+  const [sda, sdb] = sort.dir === "asc" ? [-1, +1] : [+1, -1];
   const sorted = packages.sort((a, b): number =>
     a[term] < b[term] ? sda : sdb
   );
 
   return sorted;
 };
-
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-const defaultSort = sortings.get("name asc")!;
 
 export { filterPackages, sortings, defaultSort, sortPackages };
