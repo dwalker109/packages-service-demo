@@ -1,14 +1,11 @@
-import { RouteComponentProps, Link } from "@reach/router";
+import { Link, RouteComponentProps } from "@reach/router";
+import { PayloadAction } from "@reduxjs/toolkit";
 import React, { FC } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { BasketLine, Package } from "../../types";
+import { selectCurrencyFormatter } from "../currency/currencySelectors";
 import { selectBasketSummarised } from "./basketSelectors";
 import { addToBasket, removeFromBasket } from "./basketSlice";
-import { PayloadAction } from "@reduxjs/toolkit";
-import {
-  selectCurrency,
-  selectCurrencyFormatter,
-} from "../currency/currencySelectors";
 
 const BasketDetail: FC<RouteComponentProps> = () => {
   const { basketLines, subtotal, discount, grandTotal } = useSelector(

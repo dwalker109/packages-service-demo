@@ -3,6 +3,17 @@ import { ThunkAction, Action } from "@reduxjs/toolkit";
 
 export type RootState = ReturnType<typeof rootReducer>;
 
+export type ValidSorts = "name asc" | "name desc" | "price asc" | "price desc";
+
+export type SortDef = {
+  id: ValidSorts;
+  text: string;
+  term: "name" | "price";
+  direction: "asc" | "desc";
+};
+
+export type SortingOptions = Map<ValidSorts, SortDef>;
+
 export type BasketState = {
   items: Package[];
 };
@@ -22,6 +33,11 @@ export type BasketSummary = {
   subtotal: number;
   discount: number;
   grandTotal: number;
+};
+
+export type CurrencyState = {
+  available: string[];
+  active: string;
 };
 
 export type Package = {
@@ -44,8 +60,3 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   unknown,
   Action<string>
 >;
-
-export type CurrencyState = {
-  available: string[];
-  active: string;
-};
