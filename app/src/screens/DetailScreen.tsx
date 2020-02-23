@@ -1,15 +1,12 @@
 import { RouteComponentProps } from "@reach/router";
 import React, { FC } from "react";
-import { BasketWidget } from "../components/basket/Basket";
-import CurrencyWidget from "../components/currency/CurrencyWidget";
 import PackageDetail from "../components/shop/PackageDetail";
+import MainLayout from "./MainLayout";
 
 const DetailScreen: FC<RouteComponentProps> = () => (
-  <>
+  <MainLayout>
     <PackageDetail />
-    <BasketWidget />
-    <CurrencyWidget />
-  </>
+  </MainLayout>
 );
 
 export default DetailScreen;

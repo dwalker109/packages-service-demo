@@ -1,14 +1,22 @@
-import { useParams } from "@reach/router";
+import { useParams, Link } from "@reach/router";
 import React, { FC, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Package } from "../../types";
 import BasketAddButton from "../basket/BasketAddButton";
-import { selectCurrency } from "../currency/currencySelectors";
+import {
+  selectCurrency,
+  selectCurrencyFormatter,
+} from "../currency/currencySelectors";
+import Loading from "../chrome/Loading";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
 const PackageDetail: FC = () => {
   const { id } = useParams();
   const [pkg, setPackage] = useState<Package | null>(null);
   const { active: currency } = useSelector(selectCurrency);
+
+  const { format } = useSelector(selectCurrencyFormatter);
 
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
@@ -24,23 +32,48 @@ const PackageDetail: FC = () => {
   }, [id, currency]);
 
   return (
-    <div className="PackageDetail-main">
+    <>
       {!pkg ? (
-        <div className="PackageDetail-loading">Loading</div>
+        <Loading />
       ) : (
         <>
-          <h2>{pkg.name}</h2>
-          <p className="PackageDetail-price">{pkg.price}</p>
-          <p className="PackageDetail-description">{pkg.description}</p>
-          <ul className="PackageDetail-products">
-            {pkg.products.map((product, index) => (
-              <li key={index}>{`${product.name} (${product.id})`}</li>
-            ))}
-          </ul>
-          <BasketAddButton pkg={pkg} />
+          <div className="flex justify-between border rounded-lg border-gray-300">
+            <div className="flex-1 p-8">
+              <h2 className="text-3xl">{pkg.name}</h2>
+              <p className="">{pkg.description}</p>
+              <div className="pt-8">
+                <h3 className="text-lg">Contains</h3>
+                <ul className="text-sm font-thin">
+                  {pkg.products.map((product, index) => (
+                    <li
+                      key={index}
+                      className="text-sm"
+                    >{`${product.name} (${product.id})`}</li>
+                  ))}
+                </ul>
+              </div>
+              <div className="pt-8">
+                <p className="font-thin">{format(pkg.price)}</p>
+                <BasketAddButton pkg={pkg} />
+              </div>
+            </div>
+            <div
+              className="overflow-hidden rounded-r"
+              style={{
+                backgroundImage: `url(https://picsum.photos/200/400?random=${pkg.id})`,
+                backgroundSize: "cover",
+                width: "200px",
+              }}
+            />
+          </div>
+          <Link to="/">
+            <div className="pt-8 text-blue-500">
+              <FontAwesomeIcon icon={faChevronLeft} /> Back to package listings
+            </div>
+          </Link>
         </>
       )}
-    </div>
+    </>
   );
 };
 
