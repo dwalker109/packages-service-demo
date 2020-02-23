@@ -3,11 +3,11 @@
 @tailwind components;
 
 .btn-default {
-    @apply bg-blue-500 text-white font-bold py-2 px-4 rounded;
+    @apply bg-indigo-500 text-white font-bold py-2 px-4 rounded;
 }
 
 .btn-default:hover {
-    @apply bg-blue-700
+    @apply bg-indigo-700
 }
 
 @tailwind utilities;

@@ -12,7 +12,7 @@ import {
   faPlus,
   faMinus,
 } from "@fortawesome/free-solid-svg-icons";
-import BackToListing from "../chrome/BackToListings";
+import BackToPackageList from "../chrome/BackToPackageList";
 
 const BasketDetail: FC<RouteComponentProps> = () => {
   const { basketLines, subtotal, discount, grandTotal } = useSelector(
@@ -23,7 +23,11 @@ const BasketDetail: FC<RouteComponentProps> = () => {
     <>
       <div className="border rounded-lg border-gray-300">
         <div className="p-8">
-          <BasketLinesTable basketLines={basketLines} />
+          {basketLines.length === 0 ? (
+            <div className="text-2xl text-center">Your basket is empty</div>
+          ) : (
+            <BasketLinesTable basketLines={basketLines} />
+          )}
         </div>
         <div className="p-8 text-center">
           <CurrencyLine label="Subtotal" amount={subtotal} />
@@ -34,7 +38,7 @@ const BasketDetail: FC<RouteComponentProps> = () => {
           <button className="btn-default">Checkout</button>
         </div>
       </div>
-      <BackToListing />
+      <BackToPackageList />
     </>
   );
 };
@@ -48,7 +52,7 @@ const BasketLinesTable: FC<{ basketLines: BasketLine[] }> = ({
     <table className="table-auto w-full">
       <thead>
         <tr>
-          <th className="px-4 py-2">Packages</th>
+          <th className="px-4 py-2">Package</th>
           <th className="px-4 py-2">Quantity</th>
           <th className="px-4 py-2"></th>
           <th className="px-4 py-2"></th>

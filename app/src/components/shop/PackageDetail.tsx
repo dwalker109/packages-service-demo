@@ -3,7 +3,7 @@ import React, { FC, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Package } from "../../types";
 import BasketAddButton from "../basket/BasketAddButton";
-import BackToListing from "../chrome/BackToListings";
+import BackToPackageList from "../chrome/BackToPackageList";
 import Loading from "../chrome/Loading";
 import {
   selectCurrency,
@@ -65,7 +65,7 @@ const PackageDetail: FC = () => {
               }}
             />
           </div>
-          <BackToListing />
+          <BackToPackageList />
         </>
       )}
     </>

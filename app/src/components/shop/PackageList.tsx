@@ -43,7 +43,7 @@ const PackageList: FC = () => {
     <div className="">
       <div className="flex justify-between pb-6">
         <input
-          className="flex-1 shadow appearance-none border rounded-lg rounded-r-none py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="flex-1 shadow appearance-none border rounded-lg rounded-r-none py-2 px-3 text-gray-700 leading-tight focus:outline-none"
           placeholder="Type to filter..."
           value={filter}
           onChange={(e: ChangeEvent<HTMLInputElement>): void =>
@@ -51,7 +51,7 @@ const PackageList: FC = () => {
           }
         />
         <select
-          className="shadow appearance-none border rounded-lg rounded-l-none py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          className="shadow appearance-none border rounded-lg rounded-l-none py-2 px-3 text-gray-700 leading-tight focus:outline-none"
           name="choose-sort"
           value={sort.id}
           onChange={(e: ChangeEvent<HTMLSelectElement>): void =>

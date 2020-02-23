@@ -3,7 +3,7 @@ import { Link } from "@reach/router";
 import { Package } from "../../types";
 import BasketAddButton from "../basket/BasketAddButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBoxes } from "@fortawesome/free-solid-svg-icons";
+import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 import { selectCurrencyFormatter } from "../currency/currencySelectors";
 
@@ -31,7 +31,7 @@ const PackageSummary: FC<PackageSummaryProps> = ({ pkg }) => {
       <div className="flex flex-none flex-col justify-center pr-2">
         <Link to={`/package/${pkg.id}`} className="mb-2">
           <button className="btn-default w-full">
-            <FontAwesomeIcon icon={faBoxes} /> View details
+            <FontAwesomeIcon icon={faInfoCircle} /> View details
           </button>
         </Link>
         <BasketAddButton pkg={pkg} />

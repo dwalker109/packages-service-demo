@@ -3,12 +3,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "@reach/router";
 
-const BackToListing: FC = () => (
+const BackToPackageList: FC = () => (
   <Link to="/">
-    <div className="pt-8 text-blue-500">
-      <FontAwesomeIcon icon={faChevronLeft} /> Back to package listings
+    <div className="pt-8 text-indigo-500">
+      <FontAwesomeIcon icon={faChevronLeft} /> Back to package list
     </div>
   </Link>
 );
 
-export default BackToListing;
+export default BackToPackageList;

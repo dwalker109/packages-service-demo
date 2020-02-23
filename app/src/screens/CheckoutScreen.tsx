@@ -1,12 +1,12 @@
 import { RouteComponentProps } from "@reach/router";
 import React, { FC } from "react";
 import { BasketDetail } from "../components/basket/Basket";
-import { ConversionLayout } from "./Layouts";
+import { MinimalLayout } from "./Layouts";
 
 const CheckoutScreen: FC<RouteComponentProps> = () => (
-  <ConversionLayout>
+  <MinimalLayout>
     <BasketDetail />
-  </ConversionLayout>
+  </MinimalLayout>
 );
 
 export default CheckoutScreen;

@@ -6,15 +6,18 @@ import CheckoutScreen from "./screens/CheckoutScreen";
 import DetailScreen from "./screens/DetailScreen";
 import StorefrontScreen from "./screens/StorefrontScreen";
 import rootReducer from "./setupRedux";
+import Main from "./screens/Layouts";
 
 const store = configureStore({ reducer: rootReducer });
 
 const App: FC = () => (
-  <Router>
-    <StorefrontScreen path="/" />
-    <DetailScreen path="/package/:id" />
-    <CheckoutScreen path="/basket" />
-  </Router>
+  <Main>
+    <Router>
+      <StorefrontScreen path="/" />
+      <DetailScreen path="/package/:id" />
+      <CheckoutScreen path="/basket" />
+    </Router>
+  </Main>
 );
 
 const ReduxApp: FC = () => (

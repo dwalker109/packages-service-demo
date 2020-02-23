@@ -1,12 +1,12 @@
 import { RouteComponentProps } from "@reach/router";
 import React, { FC } from "react";
 import PackageList from "../components/shop/PackageList";
-import { MainLayout } from "./Layouts";
+import { StandardLayout } from "./Layouts";
 
 const StorefrontScreen: FC<RouteComponentProps> = () => (
-  <MainLayout>
+  <StandardLayout>
     <PackageList />
-  </MainLayout>
+  </StandardLayout>
 );
 
 export default StorefrontScreen;

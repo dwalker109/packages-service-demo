@@ -1,30 +1,28 @@
 import React, { FC } from "react";
-import Header from "../components/chrome/Header";
 import { BasketWidget } from "../components/basket/Basket";
+import Header from "../components/chrome/Header";
 
-const MainLayout: FC = props => (
-  <div className="container p-6 mx-auto">
-    <div className="grid grid-cols-4 gap-6">
-      <div className="col-span-4">
-        <Header />
-      </div>
-      <div className="col-span-3">{props.children}</div>
-      <div className="col-span-1">
-        <BasketWidget />
-      </div>
+const Main: FC = ({ children }) => (
+  <>
+    <Header />
+    <div className="container py-6 mx-auto text-gray-800">{children}</div>
+  </>
+);
+
+const StandardLayout: FC = ({ children }) => (
+  <div className="grid grid-cols-4 gap-6">
+    <div className="col-span-3">{children}</div>
+    <div className="col-span-1">
+      <BasketWidget />
     </div>
   </div>
 );
 
-const ConversionLayout: FC = props => (
-  <div className="container p-6 mx-auto">
-    <div className="grid grid-cols-4 gap-6">
-      <div className="col-span-4">
-        <Header />
-      </div>
-      <div className="col-span-2 col-start-2">{props.children}</div>
-    </div>
+const MinimalLayout: FC = ({ children }) => (
+  <div className="grid grid-cols-4 gap-6">
+    <div className="col-span-2 col-start-2">{children}</div>
   </div>
 );
 
-export { MainLayout, ConversionLayout };
+export default Main;
+export { StandardLayout, MinimalLayout };
