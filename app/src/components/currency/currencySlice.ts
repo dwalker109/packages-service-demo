@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppThunk, CurrencyState } from "../../types";
+import { publicApi } from "../../config";
 
 const initialState: CurrencyState = {
   available: ["USD"],
@@ -32,7 +33,7 @@ export default currencySlice.reducer;
 
 export const thunkFetchCurrencies = (): AppThunk => async dispatch => {
   try {
-    const response = await fetch(`http://localhost:3001/currencies`);
+    const response = await fetch(`${publicApi.url}/currencies`);
     const currencies = await response.json();
     dispatch(currencyFetchCompleted(currencies));
   } catch (e) {

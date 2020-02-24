@@ -51,6 +51,7 @@ describe("Packages write", () => {
       .send({
         name: "Posted package 1",
         description: "Posted package desc 1",
+        products: ["PKM5pGAh9yGm"],
         price: 99,
       });
     expect(response.status).toBe(200);
@@ -66,6 +67,7 @@ describe("Packages write", () => {
     const newData = {
       name: "Updated package",
       description: "Updated package desc",
+      products: ["PKM5pGAh9yGm"],
       price: 678,
     };
     const updatedResponse = await request(server)
@@ -74,7 +76,7 @@ describe("Packages write", () => {
 
     expect(updatedResponse.status).toBe(200);
     expect(updatedResponse.body.id).toBe(origData.id);
-    expect(updatedResponse.body).toMatchObject(newData);
+    expect(updatedResponse.body.price).toBe(newData.price);
   });
 });
 

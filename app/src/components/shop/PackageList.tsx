@@ -1,6 +1,8 @@
 import React, { ChangeEvent, FC, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { publicApi } from "../../config";
 import { Package, SortDef, ValidSorts } from "../../types";
+import Loading from "../chrome/Loading";
 import { selectCurrency } from "../currency/currencySelectors";
 import PackageSummary from "./PackageSummary";
 import {
@@ -9,7 +11,6 @@ import {
   sortings,
   sortPackages,
 } from "./packageUtils";
-import Loading from "../chrome/Loading";
 
 const PackageList: FC = () => {
   const [apiPackages, setApiPackages] = useState<Package[]>([]);
@@ -22,7 +23,7 @@ const PackageList: FC = () => {
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
       const response = await fetch(
-        `http://localhost:3001/packages?currency=${currency}`
+        `${publicApi.url}/packages?currency=${currency}`
       );
       const data: Package[] = await response.json();
 
@@ -40,7 +41,7 @@ const PackageList: FC = () => {
   }, [filter, apiPackages, sort]);
 
   return (
-    <div className="">
+    <>
       <div className="flex justify-between pb-6">
         <input
           className="flex-1 shadow appearance-none border rounded-lg rounded-r-none py-2 px-3 text-gray-700 leading-tight focus:outline-none"
@@ -65,18 +66,16 @@ const PackageList: FC = () => {
           ))}
         </select>
       </div>
-      <div className="PackageList-main">
-        {!displayPackages.length ? (
-          <Loading />
-        ) : (
-          <div className="PackageList-packages">
-            {displayPackages.map(pkg => (
-              <PackageSummary key={pkg.id} pkg={pkg} />
-            ))}
-          </div>
-        )}
-      </div>
-    </div>
+      {!displayPackages.length ? (
+        <Loading />
+      ) : (
+        <>
+          {displayPackages.map(pkg => (
+            <PackageSummary key={pkg.id} pkg={pkg} />
+          ))}
+        </>
+      )}
+    </>
   );
 };
 

@@ -4,7 +4,7 @@ import { Package, BasketLine } from "../../types";
  * Create an array of BasketLines from basket items
  */
 export const calcBasketLines = (items: Package[]): BasketLine[] => {
-  const basketLinesMap = new Map<string, BasketLine>();
+  const basketLinesMap = new Map<number, BasketLine>();
   items.forEach(item => {
     const workingItem: BasketLine = basketLinesMap.get(item.id) || {
       pkg: item,

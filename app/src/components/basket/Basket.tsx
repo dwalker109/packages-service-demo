@@ -118,7 +118,7 @@ const CurrencyLine: FC<{ label: string; amount: number }> = ({
   return (
     <div className="">
       <span className="font-hairline pr-2">{label}</span>
-      <span>{format(amount)}</span>
+      <span data-testid={label}>{format(amount)}</span>
     </div>
   );
 };

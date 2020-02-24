@@ -25,8 +25,8 @@ const PackageSummary: FC<PackageSummaryProps> = ({ pkg }) => {
         }}
       />
       <div className="flex flex-grow flex-col p-6">
-        <span className="text-xl font-bold">{pkg.name}</span>
-        <span>{format(pkg.price)}</span>
+        <h2 className="text-xl font-bold">{pkg.name}</h2>
+        <span data-testid="price">{format(pkg.price)}</span>
       </div>
       <div className="flex flex-none flex-col justify-center pr-2">
         <Link to={`/package/${pkg.id}`} className="mb-2">

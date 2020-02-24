@@ -1,6 +1,7 @@
 import { useParams } from "@reach/router";
 import React, { FC, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { publicApi } from "../../config";
 import { Package } from "../../types";
 import BasketAddButton from "../basket/BasketAddButton";
 import BackToPackageList from "../chrome/BackToPackageList";
@@ -20,7 +21,7 @@ const PackageDetail: FC = () => {
   useEffect(() => {
     const fetchData = async (): Promise<void> => {
       const response = await fetch(
-        `http://localhost:3001/packages/${id}?currency=${currency}`
+        `${publicApi.url}/packages/${id}?currency=${currency}`
       );
       const data: Package = await response.json();
 

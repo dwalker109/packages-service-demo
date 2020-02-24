@@ -41,7 +41,7 @@ export type CurrencyState = {
 };
 
 export type Package = {
-  id: string;
+  id: number;
   name: string;
   description: string;
   products: Product[];
@@ -51,7 +51,7 @@ export type Package = {
 export type Product = {
   id: string;
   name: string;
-  usdPrice: number;
+  price: number;
 };
 
 export type AppThunk<ReturnType = void> = ThunkAction<
