@@ -1,7 +1,7 @@
-import { getConnection } from "typeorm";
+import { getConnection, InsertResult } from "typeorm";
 import { Package } from "../src/entities/Package";
 
-const seedPackages = () =>
+const seedPackages = (): Promise<InsertResult> =>
   getConnection()
     .createQueryBuilder()
     .insert()
@@ -35,4 +35,4 @@ const seedPackages = () =>
     ])
     .execute();
 
-export default () => Promise.all([seedPackages()]);
+export default (): Promise<InsertResult[]> => Promise.all([seedPackages()]);
